@@ -4,6 +4,7 @@ const { Server } = require('socket.io');
 const crypto = require('crypto');
 
 const app = express();
+app.use(express.static('main'));
 const server = http.createServer(app);
 
 // Configuración correcta de Socket.io para Render
@@ -140,4 +141,16 @@ server.listen(PORT, () => {
   console.log(`🚀 Servidor listo en puerto ${PORT}`);
   console.log(`   Estudiante → https://fastfunds-demo.onrender.com`);
   console.log(`   Profesor   → https://fastfunds-demo.onrender.com/admin.html`);
+});
+
+const ADMIN_PASSWORD = "1234";
+
+app.get("/admin", (req, res) => {
+    const password = req.query.password;
+
+    if (password !== ADMIN_PASSWORD) {
+        return res.send("❌ Access denied");
+    }
+
+    res.sendFile(__dirname + "/admin/admin.html");
 });
