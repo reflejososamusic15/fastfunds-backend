@@ -4,12 +4,12 @@ const { Server } = require('socket.io');
 const crypto = require('crypto');
 
 const app = express();
-app.use(express.static('main'));
-const path = require('path');
 
+const path = require('path');
+app.use(express.static('main'));
 const ADMIN_PASSWORD = "1234";
 
-app.get('/admin', (req, res) => {
+app.get('/secure-panel', (req, res) => {
     const password = req.query.password;
 
     if (password !== ADMIN_PASSWORD) {
