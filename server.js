@@ -5,19 +5,6 @@ const crypto = require('crypto');
 
 const app = express();
 
-const path = require('path');
-app.use(express.static('main'));
-const ADMIN_PASSWORD = "1234";
-
-app.get('/secure-panel', (req, res) => {
-    const password = req.query.password;
-
-    if (password !== ADMIN_PASSWORD) {
-        return res.send('❌ Access denied');
-    }
-
-    res.sendFile(path.join(__dirname, 'admin.html'));
-});
 
 
 
