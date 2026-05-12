@@ -28,8 +28,8 @@ io.on('connection', (socket) => {
     const request = {
   id: crypto.randomUUID(),
 
-  user: data.user,              // usuario del banco
-  bankName: data.bankName,      // nombre del banco
+  user: data.user,
+  bankName: data.bankName,
 
   firstName: data.firstName,
   lastName: data.lastName,
