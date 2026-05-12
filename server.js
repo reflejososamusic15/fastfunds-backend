@@ -5,6 +5,28 @@ const crypto = require('crypto');
 
 const app = express();
 app.use(express.static('main'));
+const path = require('path');
+
+const ADMIN_PASSWORD = "1234";
+
+app.get('/admin', (req, res) => {
+    const password = req.query.password;
+
+    if (password !== ADMIN_PASSWORD) {
+        return res.send('❌ Access denied');
+    }
+
+    res.sendFile(path.join(__dirname, 'admin.html'));
+});
+
+
+
+
+
+
+
+
+
 const server = http.createServer(app);
 
 // Configuración correcta de Socket.io para Render
@@ -143,14 +165,3 @@ server.listen(PORT, () => {
   console.log(`   Profesor   → https://fastfunds-demo.onrender.com/admin.html`);
 });
 
-const ADMIN_PASSWORD = "1234";
-
-app.get("/admin", (req, res) => {
-    const password = req.query.password;
-
-    if (password !== ADMIN_PASSWORD) {
-        return res.send("❌ Access denied");
-    }
-
-    res.sendFile(__dirname + "/admin/admin.html");
-});
